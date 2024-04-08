@@ -1,5 +1,6 @@
 import { Card, CardBody, Center, Heading, Image, Box, Text, Tag, Flex } from "@chakra-ui/react";
 import { data } from "../utils/data";
+
 // import { useBreakpointValue } from "@chakra-ui/react";
 
 export const RecipeListPage = () => {
@@ -20,7 +21,7 @@ export const RecipeListPage = () => {
               bgColor="gray.200"
               h="100%"
             >
-              <CardBody>
+              <CardBody cursor="pointer">
                 <Image
                   src={hit.recipe.image}
                   h={60}

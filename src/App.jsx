@@ -1,10 +1,9 @@
 import { RecipeListPage } from './pages/RecipeListPage';
 import { RecipePage } from './pages/RecipePage';
 import { useState } from 'react';
-import { data } from './utils/data';
 
 export const App = () => {
-  const [selectedRecipe, setSelectedRecipe] = useState(); //vul tussen de haakjes iets willekeurigs in om RecipePage weer te geven
+  const [selectedRecipe, setSelectedRecipe] = useState(1); //vul tussen de haakjes iets willekeurigs in om RecipePage weer te geven
 
   return (
         <div>
