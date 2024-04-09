@@ -3,14 +3,17 @@ import { RecipePage } from './pages/RecipePage';
 import { useState } from 'react';
 
 export const App = () => {
-  const [selectedRecipe, setSelectedRecipe] = useState(1); //vul tussen de haakjes iets willekeurigs in om RecipePage weer te geven
+  const [selectedRecipe, setSelectedRecipe] = useState();
+  const handleSelectRecipe = (recipe) => {
+    setSelectedRecipe(recipe);
+  };
 
   return (
         <div>
           {selectedRecipe ? (
             <RecipePage recipe={selectedRecipe} />
           ) : (
-            <RecipeListPage />
+            <RecipeListPage onSelectRecipe={handleSelectRecipe} />
           )}
         </div>
       );
