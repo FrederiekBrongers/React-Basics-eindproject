@@ -8,14 +8,15 @@ import {
   Text,
   Tag,
   Flex,
+  Button,
 } from "@chakra-ui/react";
 
-export const RecipePage = ({ recipe }) => {
+export const RecipePage = ({ recipe, clickFn }) => {
   return (
     <Center flexDir="column" gap={4} bgColor="red.300">
-      <Heading mt={5}>RecipePage werkdocument</Heading>
+      <Heading mt={5}>Your choosen recipe</Heading>
       <Flex flexWrap="wrap" justifyContent="center">
-        <Box width={{ base: "90%", md: "45%", lg: "23%" }} p={2} m={1}>
+        <Box width={{ base: "90%", md: "70%" }} p={2} m={1}>
           <Card
             size={"md"}
             border={"solid"}
@@ -24,80 +25,95 @@ export const RecipePage = ({ recipe }) => {
             bgColor="gray.200"
             h="100%"
           >
-            <CardBody cursor="pointer">
+            <CardBody>
+              <Button
+              bgColor="gray.100"
+              boxShadow="md"
+                position={"absolute"}
+                m={2}
+                w="fit-content"
+                onClick={() => clickFn()}
+              >
+                Back to all recipes
+              </Button>
               <Image
-                src={recipe.image} // Gebruik het image attribuut van het recept
+                src={recipe.image}
                 h={60}
                 w={"100%"}
                 borderRadius="2xl"
                 objectFit={"cover"}
               />
-              <Box p="4">
-                {recipe.mealType.length > 0 && (
-                  <Text
-                    textTransform={"uppercase"}
-                    fontSize="smaller"
-                    alignItems={"flex-start"}
-                  >
-                    {recipe.mealType.join(", ")}
-                  </Text>
-                )}
-                <Center flexDir="column" gap={1}>
-                  <Text
-                    fontWeight="bold"
-                    fontSize="xl"
-                    mr={2}
-                    textAlign={"center"}
-                  >
+              <Flex flexDir={{ base: "column", md: "row" }} p="4" gap={4}>
+                <Box flexBasis={{ base: "100%", md: "50%" }}>
+                  {recipe.mealType.length > 0 && (
+                    <Text
+                      textTransform={"uppercase"}
+                      fontSize="smaller"
+                      alignItems={"flex-start"}
+                      mb={1}
+                    >
+                      {recipe.mealType.join(", ")}
+                    </Text>
+                  )}
+                  <Text fontWeight="bold" fontSize="xl" mr={2}>
                     {recipe.label}
                   </Text>
 
-                  {recipe.yield !== null && <p>Servings: {recipe.yield}</p>}
-
-                  {recipe.dishType.length > 0 && (
-                    <Tag
-                      bgColor={"purple.100"}
-                      boxShadow="md"
-                      textAlign={"center"}
-                    >
-                      {recipe.dishType.join(", ")}
-                    </Tag>
+                  {recipe.yield !== null && (
+                    <Text mt={2}>Servings: {recipe.yield}</Text>
                   )}
-
-                  {recipe.dietLabels.length > 0 && (
+                  {recipe.dishType.length > 0 && (
+                    <Text mb={2}>Dish type: {recipe.dishType.join(", ")}</Text>
+                  )}
+                  {recipe.ingredientLines.length > 0 && (
                     <>
-                      <Flex>
-                        <p>Diet Labels:</p>
-                        <Tag
-                          bgColor={"blue.100"}
-                          boxShadow="md"
-                          textAlign={"center"}
-                        >
-                          {recipe.dietLabels.join(", ")}
-                        </Tag>
-                      </Flex>
+                      <Text fontWeight="bold">Ingredients: </Text>
+                      <ul style={{ listStyleType: "none" }}>
+                        {recipe.ingredientLines.map((ingredient, index) => {
+                          const cleanedIngredient = ingredient.replace(
+                            /^\*\s*/,
+                            ""
+                          );
+                          return <li key={index}>{cleanedIngredient}</li>;
+                        })}
+                      </ul>
                     </>
                   )}
-
+                </Box>
+                <Box flexBasis={{ base: "100%", md: "50%" }}>
+                  {recipe.dietLabels.length > 0 && (
+                    <>
+                      <p>Diet Labels:</p>
+                      <Tag
+                        bgColor={"blue.100"}
+                        boxShadow="md"
+                        textAlign={"center"}
+                        mb={2}
+                      >
+                        {recipe.dietLabels.join(", ")}
+                      </Tag>
+                    </>
+                  )}
                   {recipe.healthLabels.length > 0 && (
                     <>
                       <p>Health Labels:</p>
-                      <flexWrap>
-                        {recipe.healthLabels.map((label, index) => (
-                          <Tag
-                            key={index}
-                            bgColor={"orange.100"}
-                            boxShadow="md"
-                            textAlign={"center"}
-                            m={0.5}
-                          >
-                            {label}
-                          </Tag>
-                        ))}
-                      </flexWrap>
+                      <Box mb={2}>
+                        <Flex flexWrap="wrap">
+                          {recipe.healthLabels.map((label, index) => (
+                            <Tag
+                              key={index}
+                              bgColor={"orange.100"}
+                              boxShadow="md"
+                              textAlign={"center"}
+                              m={0.5}
+                            >
+                              {label}
+                            </Tag>
+                          ))}
+                        </Flex>
+                      </Box>
                     </>
                   )}
-
                   {recipe.cautions.length > 0 && (
                     <>
                       <p>Cautions:</p>
@@ -110,22 +126,9 @@ export const RecipePage = ({ recipe }) => {
                       </Tag>
                     </>
                   )}
-
-                  {recipe.ingredientLines.length > 0 && (
-                    <>
-                      <p>Ingredients:</p>
-                      <Tag
-                        bgColor={"black.100"}
-                        boxShadow="md"
-                        textAlign={"center"}
-                      >
-                        {recipe.ingredientLines.join(", ")}
-                      </Tag>
-                    </>
-                  )}
-                </Center>
-              </Box>
-            </CardBody>
+                </Box>                
+              </Flex>              
+            </CardBody>            
           </Card>
         </Box>
       </Flex>

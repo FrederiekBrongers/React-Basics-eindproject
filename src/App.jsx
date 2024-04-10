@@ -11,9 +11,12 @@ export const App = () => {
   return (
         <div>
           {selectedRecipe ? (
-            <RecipePage recipe={selectedRecipe} />
+            <RecipePage recipe={selectedRecipe} clickFn={setSelectedRecipe} />
           ) : (
+            <>
             <RecipeListPage onSelectRecipe={handleSelectRecipe} />
+            </>
+            
           )}
         </div>
       );
