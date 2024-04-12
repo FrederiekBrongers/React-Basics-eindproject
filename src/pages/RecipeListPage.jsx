@@ -20,7 +20,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
   return (
     <Center flexDir="column" gap={4} bgColor="red.300">
       <Heading mt={5}>Our best recipes</Heading>
-      <TextInput/>
+      <TextInput />
       <Flex flexWrap="wrap" justifyContent="center">
         {data.hits.map((hit, index) => (
           <Box
@@ -66,7 +66,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
                       {hit.recipe.label}
                     </Text>
                     {hit.recipe.dishType.length > 0 && (
-                      <Flex>
+                      <Flex mb={2}>
                         <p>Dish:&nbsp;</p>
                         <Text as="i" textAlign={"center"}>
                           {hit.recipe.dishType.join(", ")}
@@ -74,30 +74,29 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
                       </Flex>
                     )}
                     <Flex>
-                    {hit.recipe.healthLabels.includes("Vegetarian") && (
-                      <Tag bgColor={"orange.100"} boxShadow="md" mr={1}>
-                        Vegetarian
-                      </Tag>
-                    )}
-                    {hit.recipe.healthLabels.includes("Vegan") && (
-                      <Tag
-                        bgColor={"orange.100"}
-                        boxShadow="md"
-                        textAlign={"center"}
-                      >
-                        Vegan
-                      </Tag>
-                    )}
+                      {hit.recipe.healthLabels.includes("Vegetarian") && (                      
+                          <Tag bgColor={"orange.100"} boxShadow="md" mr={1}>
+                            Vegetarian
+                          </Tag>                        
+                      )}
+                      {hit.recipe.healthLabels.includes("Vegan") && (
+                        <Tag bgColor={"orange.100"} boxShadow="md">
+                          Vegan
+                        </Tag>
+                      )}
                     </Flex>
-                    
+
                     {hit.recipe.dietLabels.length > 0 && (
-                      <Tag
-                        bgColor={"blue.100"}
-                        boxShadow="md"
-                        textAlign={"center"}
-                      >
-                        {hit.recipe.dietLabels.join(", ")}
-                      </Tag>
+                      <Box textAlign={"center"} mt={3}>
+                        <p>Diet Label(s):</p>
+                        <Tag
+                          bgColor={"blue.100"}
+                          boxShadow="md"
+                          textAlign={"center"}
+                        >
+                          {hit.recipe.dietLabels.join(", ")}
+                        </Tag>
+                      </Box>
                     )}
 
                     {hit.recipe.cautions.length > 0 && (
@@ -112,8 +111,6 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
                         </Tag>
                       </Box>
                     )}
-                    
-                    
                   </Center>
                 </Box>
               </CardBody>

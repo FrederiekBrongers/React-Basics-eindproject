@@ -9,6 +9,13 @@ import {
   Tag,
   Flex,
   Button,
+  TableContainer,
+  Table,
+  Thead,
+  Th,
+  Tbody,
+  Td,
+  Tr,
 } from "@chakra-ui/react";
 
 export const RecipePage = ({ recipe, clickFn }) => {
@@ -27,8 +34,8 @@ export const RecipePage = ({ recipe, clickFn }) => {
           >
             <CardBody>
               <Button
-              bgColor="gray.100"
-              boxShadow="md"
+                bgColor="gray.100"
+                boxShadow="md"
                 position={"absolute"}
                 m={2}
                 w="fit-content"
@@ -121,14 +128,36 @@ export const RecipePage = ({ recipe, clickFn }) => {
                         bgColor={"green.100"}
                         boxShadow="md"
                         textAlign={"center"}
+                        mb={4}
                       >
                         Allergens: {recipe.cautions.join(", ")}
                       </Tag>
                     </>
                   )}
-                </Box>                
-              </Flex>              
-            </CardBody>            
+                  <p></p>
+                  <TableContainer>
+                    <Table variant="striped" size="sm">
+                      <Thead>
+                        <Th>Nutrients</Th>
+                      </Thead>
+                      <Tbody> 
+                        {["ENERC_KCAL", "PROCNT", "FAT", "CHOCDF", "CHOLE", "NA"].map((nutrient) => (
+                          <Tr key={nutrient}>
+                            <Td>{recipe.totalNutrients[nutrient].label}</Td>
+                            <Td>
+                              {recipe.totalNutrients[nutrient].quantity.toFixed(
+                                0
+                              )}
+                            </Td>
+                            <Td>{recipe.totalNutrients[nutrient].unit}</Td>
+                          </Tr>
+                        ))}
+                      </Tbody>
+                    </Table>
+                  </TableContainer>
+                </Box>
+              </Flex>
+            </CardBody>
           </Card>
         </Box>
       </Flex>
