@@ -17,7 +17,7 @@ export const RecipeSearch = ({ onClick }) => {
   return (
     <>
       <label>Search for recipes</label>
-      <TextInput onChange={handleChange}/>
+      <TextInput value={searchField} onChange={handleChange}/>
       <RecipePages onClick={onClick} recipes={matchedRecipes}/>
     </>
   );
