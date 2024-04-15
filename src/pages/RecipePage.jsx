@@ -138,7 +138,9 @@ export const RecipePage = ({ recipe, clickFn }) => {
                   <TableContainer>
                     <Table variant="striped" size="sm">
                       <Thead>
+                        <Tr>
                         <Th>Nutrients</Th>
+                        </Tr>                        
                       </Thead>
                       <Tbody> 
                         {["ENERC_KCAL", "PROCNT", "FAT", "CHOCDF", "CHOLE", "NA"].map((nutrient) => (

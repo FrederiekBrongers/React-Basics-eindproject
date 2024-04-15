@@ -11,6 +11,7 @@ export const RecipeSearch = ({ onClick }) => {
   });
 
   const handleChange = (event) => {
+    console.log("event.target.value:",event.target.value)
     setSearchfield(event.target.value);
   };
 
@@ -22,3 +23,6 @@ export const RecipeSearch = ({ onClick }) => {
     </>
   );
 };
+
+
+
