@@ -1,3 +1,3 @@
-export RecipeCard = () => {
-    
+export const RecipeCard = () => {
+
 }
