@@ -1,8 +1,7 @@
 import { Input } from "@chakra-ui/react";
 
-export const TextInput = ({ onChange }) => (
-  <Input
-    
+export const TextInput = ({ onChange, value}) => (
+  <Input    
     placeholder="Choose your recipe"
     borderRadius={"xl"}
     borderColor={"white"}
@@ -12,5 +11,6 @@ export const TextInput = ({ onChange }) => (
     size="lg"
     width="auto"
     onChange={onChange}
+    value={value}
   />
 );

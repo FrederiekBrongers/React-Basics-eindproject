@@ -13,10 +13,7 @@ export const App = () => {
           {selectedRecipe ? (
             <RecipePage recipe={selectedRecipe} clickFn={setSelectedRecipe} />
           ) : (
-            <>
             <RecipeListPage onSelectRecipe={handleSelectRecipe} />
-            </>
-            
           )}
         </div>
       );

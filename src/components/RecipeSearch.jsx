@@ -1,25 +1,12 @@
-import { useState } from "react";
 import { TextInput } from "./ui/TextInput";
-import { data } from "../utils/data";
-import { RecipePages } from "../pages/RecipePages";
 
-export const RecipeSearch = ({ onClick }) => {
-  const [searchField, setSearchfield] = useState("");
-
-  const matchedRecipes = data.filter((recipe) => {
-    return recipe.label.toLowerCase().includes(searchField.toLocaleLowerCase());
-  });
-
-  const handleChange = (event) => {
-    console.log("event.target.value:",event.target.value)
-    setSearchfield(event.target.value);
-  };
+export const RecipeSearch = ({ onChange, value }) => {
+  
 
   return (
     <>
       <label>Search for recipes</label>
-      <TextInput value={searchField} onChange={handleChange}/>
-      <RecipePages onClick={onClick} recipes={matchedRecipes}/>
+      <TextInput value={value} onChange={onChange}/>
     </>
   );
 };

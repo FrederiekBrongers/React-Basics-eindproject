@@ -3,7 +3,6 @@ import {
   CardBody,
   Center,
   Heading,
-  Image,
   Box,
   Text,
   Tag,
@@ -11,16 +10,30 @@ import {
 } from "@chakra-ui/react";
 import { data } from "../utils/data";
 import { TextInput } from "../components/ui/TextInput";
+import { useState } from "react";
+import { RecipeCardImage } from "../components/RecipeCard/RecipeCardImage";
 
 export const RecipeListPage = ({ onSelectRecipe }) => {
   const handleCardClick = (recipe) => {
     onSelectRecipe(recipe);
   };
 
+  const [searchField, setSearchfield] = useState("");
+
+  // const matchedRecipes = data.filter((recipe) => {
+  //   return recipe.label.toLowerCase().includes(searchField.toLocaleLowerCase());
+  // });
+
+  const handleChange = (event) => {
+    setSearchfield(event.target.value);
+    console.log("event.target.value:",searchField)
+  
+  };
+
   return (
     <Center flexDir="column" gap={4} bgColor="red.300">
       <Heading mt={5}>Our best recipes</Heading>
-      <TextInput />
+      <TextInput value={searchField} onChange={handleChange}/>
       <Flex flexWrap="wrap" justifyContent="center">
         {data.hits.map((hit, index) => (
           <Box
@@ -39,13 +52,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
               h="100%"
             >
               <CardBody cursor="pointer">
-                <Image
-                  src={hit.recipe.image}
-                  h={60}
-                  w={"100%"}
-                  borderRadius="2xl"
-                  objectFit={"cover"}
-                />
+                <RecipeCardImage src={hit.recipe.image}/>
                 <Box p="4">
                   <Center flexDir="column" gap={1}>
                     {hit.recipe.mealType.length > 0 && (
