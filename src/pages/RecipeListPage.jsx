@@ -12,13 +12,20 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
 
   const [searchField, setSearchfield] = useState("");
 
+  const labels = data.hits.map(hit => hit.recipe.label)
+
+  const [filteredLabels, setFilteredLabels] = useState (labels)
+
   // const matchedRecipes = data.filter((recipe) => {
-  //   return recipe.label.toLowerCase().includes(searchField.toLocaleLowerCase());
+  //   return recipe.label.toLowerCase().includes(searchField.toLowerCase());
   // });
 
   const handleChange = (event) => {
     setSearchfield(event.target.value);
-    console.log("event.target.value:", searchField);
+    setFilteredLabels (labels.filter ((label) => {
+      return label.toLowerCase().includes(searchField.toLowerCase());
+    })) 
+    console.log(filteredLabels);
   };
 
   return (
@@ -26,7 +33,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
       <Heading mt={5}>Our best recipes</Heading>
       <TextInput value={searchField} onChange={handleChange} />
       <Flex flexWrap="wrap" justifyContent="center">
-        {data.hits.map((hit, index) => (
+        {data.hits.filter((hit) => filteredLabels.includes(hit.recipe.label)).map((hit, index) => (
           <Box
             key={index}
             width={{ base: "90%", md: "45%", lg: "23%" }}
@@ -44,7 +51,6 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
             >
               <CardBody cursor="pointer">
                 <RecipeCardImage src={hit.recipe.image} />
-                {console.log(hit.recipe.mealType.length > 0)}
                 <RecipeCardText
                   label={hit.recipe.label}
                   mealTypes={hit.recipe.mealType}
