@@ -5,27 +5,29 @@ import { useState } from "react";
 import { RecipeCardImage } from "../components/RecipeCard/RecipeCardImage";
 import { RecipeCardText } from "../components/RecipeCard/RecipeCardText";
 
+
 export const RecipeListPage = ({ onSelectRecipe }) => {
   const handleCardClick = (recipe) => {
     onSelectRecipe(recipe);
   };
 
   const [searchField, setSearchfield] = useState("");
-
-  const labels = data.hits.map(hit => hit.recipe.label)
-
-  const [filteredLabels, setFilteredLabels] = useState (labels)
-
-  // const matchedRecipes = data.filter((recipe) => {
-  //   return recipe.label.toLowerCase().includes(searchField.toLowerCase());
-  // });
+  const [filteredRecipes, setFilteredRecipes] = useState(data.hits); // Initialiseer met alle recepten
 
   const handleChange = (event) => {
-    setSearchfield(event.target.value);
-    setFilteredLabels (labels.filter ((label) => {
-      return label.toLowerCase().includes(searchField.toLowerCase());
-    })) 
-    console.log(filteredLabels);
+    const searchText = event.target.value.toLowerCase();
+    setSearchfield(searchText);
+
+    const filteredRecipes = data.hits.filter((hit) => {
+      return (
+        hit.recipe.label.toLowerCase().includes(searchText) ||
+        hit.recipe.healthLabels.some((healthLabel) =>
+          healthLabel.toLowerCase().includes(searchText)
+        )
+      );
+    });
+
+        setFilteredRecipes(filteredRecipes);
   };
 
   return (
@@ -33,10 +35,11 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
       <Heading mt={5}>Our best recipes</Heading>
       <TextInput value={searchField} onChange={handleChange} />
       <Flex flexWrap="wrap" justifyContent="center">
-        {data.hits.filter((hit) => filteredLabels.includes(hit.recipe.label)).map((hit, index) => (
+        {filteredRecipes.map((hit, index) => (
           <Box
             key={index}
-            width={{ base: "90%", md: "45%", lg: "23%" }}
+            // width={{ base: "90%", md: "45%", lg: "23%" }}
+            width={{ base: "90%", md: "300px", lg: "300px" }}
             p={2}
             m={1}
             onClick={() => handleCardClick(hit.recipe)}
@@ -58,9 +61,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
                   healthLabels={hit.recipe.healthLabels}
                   dietLabels={hit.recipe.dietLabels}
                   cautions={hit.recipe.cautions}
-                />
-
-              
+                />              
               </CardBody>
             </Card>
           </Box>
