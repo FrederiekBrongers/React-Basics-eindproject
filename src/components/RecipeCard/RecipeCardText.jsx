@@ -59,7 +59,7 @@ export const RecipeCardText = ({label, mealTypes, dishTypes, healthLabels, dietL
 
                     {cautions.length > 0 && (
                       <Box mt={3} textAlign={"center"}>
-                        <p>Allergens: &nbsp;</p>
+                        <p>Cautions: &nbsp;</p>
                         <Tag
                           bgColor={"green.100"}
                           boxShadow="md"

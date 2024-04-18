@@ -12,7 +12,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
   };
 
   const [searchField, setSearchfield] = useState("");
-  const [filteredRecipes, setFilteredRecipes] = useState(data.hits); // Initialiseer met alle recepten
+  const [filteredRecipes, setFilteredRecipes] = useState(data.hits); 
 
   const handleChange = (event) => {
     const searchText = event.target.value.toLowerCase();
@@ -37,8 +37,7 @@ export const RecipeListPage = ({ onSelectRecipe }) => {
       <Flex flexWrap="wrap" justifyContent="center">
         {filteredRecipes.map((hit, index) => (
           <Box
-            key={index}
-            // width={{ base: "90%", md: "45%", lg: "23%" }}
+            key={index}            
             width={{ base: "90%", md: "300px", lg: "300px" }}
             p={2}
             m={1}
